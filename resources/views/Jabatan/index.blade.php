@@ -31,14 +31,14 @@
 				    	<td><p>{{ $data->nama_jabatan }}</p></td>
 				    	<td>{{ $data->created_at->diffForHumans() }}</td>
 						<td>
-							<a class="btn btn-default" href="{{ route('jabatan.edit',$data->id) }}"><span class="ti-pencil"></span>&nbsp;Edit</a>
+							<a class="btn btn-default" href="{{ route('jabatan.edit',$data->id) }}"><span class="ti-pencil"></span></a>
 						</td>
 						<td>
 							<form method="post" action="{{ route('jabatan.destroy',$data->id) }}">
 								<input name="_token" type="hidden" value="{{ csrf_token() }}">
 								<input type="hidden" name="_method" value="DELETE">
 
-								<button type="submit" class="btn btn-danger"><span class="ti-trash"></span>&nbsp;Delete</button>
+								<button type="submit" class="btn btn-danger"><span class="ti-trash"></span></button>
 							</form>
 						</td>
 				      </tr>

@@ -8,7 +8,8 @@
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
+                    <img src="{{ asset('asset/Admin/assets/img/uin.png') }}" width="40px" height="40px">
+                    PTIPD UIN SGD                    
                 </a>
             </div>
 
