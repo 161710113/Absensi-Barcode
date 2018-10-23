@@ -10,7 +10,7 @@
               <div class="panel-heading" align="center">MASUKAN ABSEN</div>              
 			  </div>
 			  <div class="panel-body">
-			  	<form action="{{ route('absen.store') }}" method="post" enctype="multipart/form-data">
+			  	{{-- <form action="{{ route('absen.store') }}" method="post" enctype="multipart/form-data">
 					  {{ csrf_field() }}
 					  <div class="form-group {{ $errors->has('pegawai_id') ? 'has error' : '' }}">
 							<label class="control-label">Pegawai</label>
@@ -56,7 +56,8 @@
 			  		<div class="form-group">
 			  			<button type="submit" class="btn btn-primary panel pull-right"><span class="ti-check"></span>&nbsp;Selesai</button>
 			  		</div>
-			  	</form>
+				  </form> --}}
+				  {!! $html->table(['class'=>'table-striped']) !!}
 			  </div>
 			</div>	
 		</div>
@@ -64,4 +65,8 @@
 	</div>
 </div>
 </div>
+@endsection
+
+@section('scripts')
+{!! $html->scripts() !!}
 @endsection

@@ -21,7 +21,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('absen.create') }}">
+                    <a href="{{ route('absen.input') }}">
                         <i class="ti-view-list"></i>
                         <p>Absen</p>
                     </a>

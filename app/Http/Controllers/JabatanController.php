@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Jabatan;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Html\Builder;
+use Yajra\Datatables\Datatables;
 
 class JabatanController extends Controller
 {
@@ -12,10 +14,29 @@ class JabatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    // {
+    //     $jabatan= Jabatan::all();
+    //     return view ('Jabatan.index',compact('jabatan'));
+    // }
+    public function index(Request $request, Builder $htmlBuilder)
     {
-        $jabatan= Jabatan::all();
-        return view ('Jabatan.index',compact('jabatan'));
+        if ($request->ajax()) {
+        $jabatan = Jabatan::select(['id', 'nama_jabatan']);
+        // return Datatables::of($jabatan)->make(true);
+        return Datatables::of($jabatan)
+        ->addColumn('action', function($jabatan){
+            return view('materials._action', [
+            'model'=> $jabatan,
+            'delete_url'=> route('jabatan.destroy', $jabatan->id),
+            'edit_url' => route('jabatan.edit', $jabatan->id),
+            ]);
+        })->make(true);
+    }
+    $html = $htmlBuilder
+    ->addColumn(['data' => 'nama_jabatan', 'name'=>'nama_jabatan', 'title'=>'Jabatan'])
+    ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
+    return view('Jabatan.index')->with(compact('html'));
     }
 
     /**

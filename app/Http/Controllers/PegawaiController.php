@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Pegawai;
 use App\Jabatan;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Html\Builder;
+use Yajra\Datatables\Datatables;
 
 class PegawaiController extends Controller
 {
@@ -13,11 +15,32 @@ class PegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    // {
+    //     //
+    //     $pegawai = Pegawai::all();
+    //     return view('Pegawai.index', compact('pegawai'));
+    // }
+    public function index(Request $request, Builder $htmlBuilder)
     {
-        //
-        $pegawai = Pegawai::all();
-        return view('Pegawai.index', compact('pegawai'));
+        if ($request->ajax()) {
+        $pegawai = Pegawai::with(['jabatan']);
+        // return Datatables::of($pegawai)->make(true);
+        return Datatables::of($pegawai)
+        ->addColumn('action', function($pegawai){
+            return view('materials._action', [
+            'model'=> $pegawai,
+            'delete_url'=> route('pegawai.destroy', $pegawai->id),
+            'edit_url' => route('pegawai.edit', $pegawai->id),
+            ]);
+        })->make(true);
+    }
+    $html = $htmlBuilder
+    ->addColumn(['data' => 'nip', 'name'=>'nip', 'title'=>'NIP'])
+    ->addColumn(['data' => 'nama', 'name'=>'nama', 'title'=>'Nama'])
+    ->addColumn(['data' => 'jabatan.nama_jabatan', 'name'=>'jabatan.nama_jabatan', 'title'=>'Jabatan'])
+    ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
+    return view('Pegawai.index')->with(compact('html'));
     }
 
     /**

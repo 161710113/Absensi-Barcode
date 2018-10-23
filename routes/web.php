@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('jabatan','JabatanController');
 Route::resource('pegawai','PegawaiController');
 Route::resource('absen','AbsenController');
+Route::get('kehadiran','AbsenController@input')->name('absen.input');

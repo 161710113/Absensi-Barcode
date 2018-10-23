@@ -13,7 +13,7 @@
 								<a class="btn btn-success" href="{{ route('jabatan.create') }}"><span class="ti-plus"></span>&nbsp;&nbsp;Tambah</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							</div>
 						</div>
-						<div class="content table-responsive table-full-width">
+						{{-- <div class="content table-responsive table-full-width">
 							<table class="table table-striped">
 				  	<thead>
 			  		<tr>
@@ -45,10 +45,17 @@
 				      @endforeach	
 				  	</tbody>
                     </table>
-                </div>
+				</div> --}}
+				<div class="panel-body">
+					{!! $html->table(['class'=>'table-striped']) !!}
+				</div>
             </div>
         </div>
     </div>
 </div>
 </div>
+@endsection
+
+@section('scripts')
+{!! $html->scripts() !!}
 @endsection
