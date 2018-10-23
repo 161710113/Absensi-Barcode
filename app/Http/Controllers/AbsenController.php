@@ -16,8 +16,9 @@ class AbsenController extends Controller
     public function index()
     {
         //
-        $absen = Absen::orderBy('created_at','desc')->paginate();
-        return view('Absen.index', compact('absen'));
+        $pegawai = Pegawai::all();
+        $absen = Absen::orderBy('created_at','decs')->paginate(10);
+        return view('Absen.index', compact('absen','pegawai'));
     }
 
     /**

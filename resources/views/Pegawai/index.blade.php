@@ -7,8 +7,8 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="header">
-							<h4 class="title">Jabatan</h4>
-							<p class="category">Jabatan PTIPD</p>
+							<h4 class="title">Pegawai</h4>
+							<p class="category">Pegawai PTIPD</p>
 							<div class="panel pull-right">
 								<a class="btn btn-success" href="{{ route('pegawai.create') }}"><span class="ti-plus"></span>&nbsp;&nbsp;Tambah</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							</div>

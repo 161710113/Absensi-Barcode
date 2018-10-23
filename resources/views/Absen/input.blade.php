@@ -44,15 +44,15 @@
                             </span>
                         @endif
 						</div>
-						{{-- <div class="form-group {{ $errors->has('jam_keluar') ? ' has-error' : '' }}">
+						<div class="form-group {{ $errors->has('jam_keluar') ? ' has-error' : '' }}">
 			  			<label class="control-label">Jam Keluar</label>	
-			  			<input type="time" name="jam_keluar" class="form-control">
+			  			<input type="time" name="jam_keluar" value="{{ carbon\carbon::now()->timezone('Asia/Jakarta')->format('H:i:s') }}" class="form-control" readonly>
 			  			@if ($errors->has('jam_keluar'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('jam_keluar') }}</strong>
                             </span>
                         @endif
-					  </div> --}}
+					  </div>
 			  		<div class="form-group">
 			  			<button type="submit" class="btn btn-primary panel pull-right"><span class="ti-check"></span>&nbsp;Selesai</button>
 			  		</div>
