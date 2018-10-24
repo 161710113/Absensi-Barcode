@@ -35,7 +35,7 @@
                                 <label class="control-label">Jabatan</label>
                                 <select name="jabatan_id" class="form-control">
                                     @foreach($jabatan as $data)
-                                    <option value="{{ $data->id }}" {{ $jabatanselect==$ data->id ? 'selected="selected"' : '' }}>{{ $data->nama_jabatan }}</option>
+                                    <option value="{{ $data->id }}" {{ $jabatanselect==$data->id ? 'selected="selected"' : '' }}>{{ $data->nama_jabatan }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('jabatan_id'))

@@ -10,11 +10,6 @@ use Yajra\Datatables\Datatables;
 
 class AbsenController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -42,100 +37,58 @@ class AbsenController extends Controller
             return view('Absen.index')->with(compact('html'));
     }
     public function input(Request $request, Builder $htmlBuilder)
-    {
+    {        
         if ($request->ajax()) {
-        $pegawai = Pegawai::with(['absen']);
-        // return Datatables::of($pegawai)->make(true);
+        $pegawai = Pegawai::with(['absen']);               
         return Datatables::of($pegawai)
         ->addColumn('action', function($pegawai){
             return view('materials._absen', [
             'model'=> $pegawai,
-            'delete_url'=> route('absen.destroy', $pegawai->id),
-            'edit_url' => route('absen.edit', $pegawai->id),
+            'jam'=> route('absen.jam', $pegawai->id),
+            // 'jam_keluar' => route('absen.jam', $pegawai->id),
             ]);
         })->make(true);
-    }
+    }    
     $html = $htmlBuilder
     ->addColumn(['data' => 'nip', 'name'=>'nip', 'title'=>'NIP'])
     ->addColumn(['data' => 'nama', 'name'=>'nama', 'title'=>'Nama'])
     ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
     return view('Absen.input')->with(compact('html'));
     }
+    
+    public function jam(Request $request)
+    {        
+        $pegawai_id = Absen::with('Pegawai')->get();
+        $tanggal = date("Y-m-d"); // 2017-02-01
+        $jam = date("H:i:s"); // 12:31:20
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-        // $absen = Absen::all();
-        // $pegawai = Pegawai::all();
-        // return view('Absen.input', compact('absen','pegawai'));
-    }
+        $absen = new Absen;
+        // absen masuk
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-        $this->validate($request, 
-        [
-            'tanggal' => 'required',
-            'jam_masuk' => 'required',
-            'jam_keluar' => '',
-            'pegawai_id' => 'required']);
-        $absen = Absen::create($request->all());
-        return redirect()->route('absen.index');
-    }
+        if (isset($request->masuk)){
+             //cek double data
+            $cek_double = $absen->where(['tanggal'=> $tanggal, 'pegawai_id' => $pegawai_id])->count();
+            
+            if ($cek_double >0 ){
+                return redirect()->back();
+            }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Absen  $absen
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Absen $absen)
-    {
-        //
-    }
+            $absen->create([
+                'pegawai_id'   => $pegawai_id,
+                'tanggal'      => $tanggal,
+                'jam_masuk'   => $jam]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Absen  $absen
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Absen $absen)
-    {
-        //
-    }
+            return redirect()->back();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Absen  $absen
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Absen $absen)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Absen  $absen
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Absen $absen)
-    {
-        //
+        } //absen keluar 
+        elseif (isset($request->keluar)){
+            $absen->where(['tanggal' => $tanggal, 'pegawai_id' => $pegawai_id])
+                ->update([
+                    'jam_keluar' => $jam]);
+            return redirect()->back();       
+        }
+       
+        dd ($absen);
+        // return $request->all();
     }
 }

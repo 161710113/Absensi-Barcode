@@ -54,7 +54,8 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary panel pull-right"><span class="ti-check"></span>&nbsp;Selesai</button>
                             </div>
-                        </form> --}} {!! $html->table(['class'=>'table-striped']) !!}
+                        </form> --}} 
+                        {!! $html->table(['class'=>'table-striped']) !!}
                     </div>
                 </div>
             </div>
