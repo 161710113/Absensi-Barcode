@@ -58,37 +58,37 @@ class AbsenController extends Controller
     
     public function jam(Request $request)
     {        
-        $pegawai_id = Absen::with('Pegawai')->get();
-        $tanggal = date("Y-m-d"); // 2017-02-01
-        $jam = date("H:i:s"); // 12:31:20
+        // $pegawai_id = Absen::with('Pegawai')->get();
+        // $tanggal = date("Y-m-d"); // 2017-02-01
+        // $jam = date("H:i:s"); // 12:31:20
 
-        $absen = new Absen;
-        // absen masuk
+        // $absen = new Absen;
+        // // absen masuk
 
-        if (isset($request->masuk)){
-             //cek double data
-            $cek_double = $absen->where(['tanggal'=> $tanggal, 'pegawai_id' => $pegawai_id])->count();
+        // if (isset($request->masuk)){
+        //      //cek double data
+        //     $cek_double = $absen->where(['tanggal'=> $tanggal, 'pegawai_id' => $pegawai_id])->count();
             
-            if ($cek_double >0 ){
-                return redirect()->back();
-            }
+        //     if ($cek_double >0 ){
+        //         return redirect()->back();
+        //     }
 
-            $absen->create([
-                'pegawai_id'   => $pegawai_id,
-                'tanggal'      => $tanggal,
-                'jam_masuk'   => $jam]);
+        //     $absen->create([
+        //         'pegawai_id'   => $pegawai_id,
+        //         'tanggal'      => $tanggal,
+        //         'jam_masuk'   => $jam]);
 
-            return redirect()->back();
+        //     return redirect()->back();
 
-        } //absen keluar 
-        elseif (isset($request->keluar)){
-            $absen->where(['tanggal' => $tanggal, 'pegawai_id' => $pegawai_id])
-                ->update([
-                    'jam_keluar' => $jam]);
-            return redirect()->back();       
-        }
+        // } //absen keluar 
+        // elseif (isset($request->keluar)){
+        //     $absen->where(['tanggal' => $tanggal, 'pegawai_id' => $pegawai_id])
+        //         ->update([
+        //             'jam_keluar' => $jam]);
+        //     return redirect()->back();       
+        // }
        
-        dd ($absen);
+        // dd ($absen);
         // return $request->all();
     }
 }
