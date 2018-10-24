@@ -23,4 +23,4 @@ Route::resource('jabatan','JabatanController');
 Route::resource('pegawai','PegawaiController');
 Route::resource('absen','AbsenController');
 Route::get('kehadiran','AbsenController@input')->name('absen.input');
-Route::post('jam/{id}','AbsenController@jam')->name('absen.jam');
+// Route::post('jam/{id}','AbsenController@jam')->name('absen.jam');
