@@ -31,7 +31,7 @@
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="{{ asset('asset/Admin/assets/css/themify-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/Table/css/jquery.dataTables.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset/Table/css/dataTables.bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/Table/css/dataTables.bootstrap.css') }}" rel="stylesheet">    
 
 </head>
 <body>
@@ -74,7 +74,7 @@
     <script src="{{ asset('asset/Admin/assets/js/demo.js') }}"></script>
 
     <script src="{{ asset('asset/Table/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('asset/Table/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('asset/Table/js/dataTables.bootstrap.min.js') }}"></script>    
     @yield('scripts')
     {{-- <script type="text/javascript">
         $(document).ready(function(){
@@ -91,5 +91,5 @@
             });
     
         });
-    </script> --}}
+    </script> --}}    
 </html>

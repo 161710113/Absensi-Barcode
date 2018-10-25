@@ -7,6 +7,7 @@ use App\Pegawai;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Html\Builder;
 use Yajra\Datatables\Datatables;
+use Illuminate\Validation\Validator;
 
 class AbsenController extends Controller
 {
@@ -37,23 +38,28 @@ class AbsenController extends Controller
             return view('Absen.index')->with(compact('html'));
     }
     public function input(Request $request, Builder $htmlBuilder)
-    {        
+    {
+        $pegawai = Pegawai::all();
+        $absen = Absen::all();
+        // return view('Pegawai.create', compact('pegawai','jabatan'));
         if ($request->ajax()) {
         $pegawai = Pegawai::with(['absen']);               
         return Datatables::of($pegawai)
-        ->addColumn('action', function($pegawai){
-            return view('materials._absen', [
-            'model'=> $pegawai,
-            'masuk'=> $pegawai->id,
-            'keluar' => $pegawai->id,
-            ]);
-        })->make(true);
+        // ->addColumn('action', function($pegawai){
+        //     return view('materials._absen', [
+        //     'model'=> $pegawai,
+        //     'masuk'=> $pegawai->id,
+        //     'keluar' => $pegawai->id,
+        //     ]);
+        // }
+        // )
+        ->make(true);
     }    
     $html = $htmlBuilder
     ->addColumn(['data' => 'nip', 'name'=>'nip', 'title'=>'NIP'])
-    ->addColumn(['data' => 'nama', 'name'=>'nama', 'title'=>'Nama'])
-    ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
-    return view('Absen.input')->with(compact('html'));
+    ->addColumn(['data' => 'nama', 'name'=>'nama', 'title'=>'Nama']);
+    // ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
+    return view('Absen.input')->with(compact('html','pegawai','jabatan'));
     }
     
     // public function jam(Request $request)
@@ -98,6 +104,14 @@ class AbsenController extends Controller
     public function keluar(Request $request){
 
     }
-
-    
+    public function store(Request $request)
+    {
+        //
+        $this->validate($request, 
+        ['tanggal' => 'required',
+        'jam_masuk' => 'required',
+        'pegawai_id' => 'required']);
+        $absen = Absen::create($request->all());
+        return redirect()->route('absen.index');
+    }
 }
