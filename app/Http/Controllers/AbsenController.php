@@ -45,20 +45,19 @@ class AbsenController extends Controller
         if ($request->ajax()) {
         $pegawai = Pegawai::with(['absen']);               
         return Datatables::of($pegawai)
-        // ->addColumn('action', function($pegawai){
-        //     return view('materials._absen', [
-        //     'model'=> $pegawai,
-        //     'masuk'=> $pegawai->id,
-        //     'keluar' => $pegawai->id,
-        //     ]);
-        // }
-        // )
+        ->addColumn('action', function($pegawai){
+            return view('materials._absen', [
+            'model'=> $pegawai,            
+            'keluar' => $pegawai->id,
+            ]);
+        }
+        )
         ->make(true);
     }    
     $html = $htmlBuilder
     ->addColumn(['data' => 'nip', 'name'=>'nip', 'title'=>'NIP'])
-    ->addColumn(['data' => 'nama', 'name'=>'nama', 'title'=>'Nama']);
-    // ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
+    ->addColumn(['data' => 'nama', 'name'=>'nama', 'title'=>'Nama'])
+    ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
     return view('Absen.input')->with(compact('html','pegawai','jabatan'));
     }
     
@@ -112,6 +111,15 @@ class AbsenController extends Controller
         'jam_masuk' => 'required',
         'pegawai_id' => 'required']);
         $absen = Absen::create($request->all());
+        return redirect()->route('absen.index');
+    }
+    public function update(Request $request,$id)
+    {
+        $this->validate($request, 
+        ['jam_keluar' => 'required',
+        'pegawai_id' => 'required']);
+        $absen = Absen::find($id);
+        $absen->update($request->all());
         return redirect()->route('absen.index');
     }
 }

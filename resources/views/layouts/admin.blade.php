@@ -74,7 +74,7 @@
     <script src="{{ asset('asset/Admin/assets/js/demo.js') }}"></script>
 
     <script src="{{ asset('asset/Table/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('asset/Table/js/dataTables.bootstrap.min.js') }}"></script>    
+    <script src="{{ asset('asset/Table/js/dataTables.bootstrap.min.js') }}"></script>   
     @yield('scripts')
     {{-- <script type="text/javascript">
         $(document).ready(function(){
