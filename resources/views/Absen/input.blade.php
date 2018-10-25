@@ -124,7 +124,7 @@
                 <h4 class="modal-title">Jam Keluar</h4>
             </div>
             <div class="modal-body">
-                <form action="{{ route('absen.store') }}" method="post" enctype="multipart/form-data">
+                {{-- <form action="{{ route('absen.store') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group {{ $errors->has('jam_keluar') ? ' has-error' : '' }}">
                         <label class="control-label">Jam Keluar</label>
@@ -132,7 +132,7 @@
                         <span class="help-block">
                         <strong>{{ $errors->first('jam_keluar') }}</strong>
                     </span> @endif
-                </div>
+                </div> --}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
