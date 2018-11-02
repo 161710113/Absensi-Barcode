@@ -148,7 +148,7 @@ class AdminSeeder extends Seeder
             'jabatan_id' => '6'
         ]);
         $pegawai23 = Pegawai::create([
-            'nip' => '201800306',
+            'nip' => '0201800306',
             'nama' => 'Temy Ramdhan',
             'jabatan_id' => '6'
         ]);
