@@ -8,7 +8,9 @@ use App\Pegawai;
 class Absen extends Model
 {
     protected $table = 'absens';
-    protected $fillable = ['tanggal','jam_masuk','jam_keluar','pegawai_id'];
+    protected $fillable = ['tanggal','jam_masuk',
+    // 'jam_keluar',
+    'pegawai_id'];
     public $timestamp = 'true';
 
     public function Pegawai() {

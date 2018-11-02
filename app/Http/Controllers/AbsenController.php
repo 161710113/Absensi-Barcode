@@ -32,8 +32,8 @@ class AbsenController extends Controller
             ->addColumn(['data' => 'pegawai.nip', 'name'=>'pegawai.nip', 'title'=>'NIP'])
             ->addColumn(['data' => 'pegawai.nama', 'name'=>'pegawai.nama', 'title'=>'Pegawai'])
             ->addColumn(['data' => 'tanggal', 'name'=>'tanggal', 'title'=>'Tanggal'])
-            ->addColumn(['data' => 'jam_masuk', 'name'=>'jam_masuk', 'title'=>'Jam Masuk'])
-            ->addColumn(['data' => 'jam_keluar', 'name'=>'jam_keluar', 'title'=>'Jam Keluar']);            
+            ->addColumn(['data' => 'jam_masuk', 'name'=>'jam_masuk', 'title'=>'Jam Masuk']);
+            // ->addColumn(['data' => 'jam_keluar', 'name'=>'jam_keluar', 'title'=>'Jam Keluar']);            
             
             return view('Absen.index')->with(compact('html'));
     }
@@ -48,7 +48,8 @@ class AbsenController extends Controller
         ->addColumn('action', function($pegawai){
             return view('materials._absen', [
             'model'=> $pegawai,            
-            'keluar' => $pegawai->id,
+            //  
+            // 'keluar' => $pegawai->id,
             ]);
         }
         )
@@ -56,8 +57,8 @@ class AbsenController extends Controller
     }    
     $html = $htmlBuilder
     ->addColumn(['data' => 'nip', 'name'=>'nip', 'title'=>'NIP'])
-    ->addColumn(['data' => 'nama', 'name'=>'nama', 'title'=>'Nama'])
-    ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
+    ->addColumn(['data' => 'nama', 'name'=>'nama', 'title'=>'Nama']);
+    // ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
     return view('Absen.input')->with(compact('html','pegawai','jabatan'));
     }
     
@@ -113,13 +114,13 @@ class AbsenController extends Controller
         $absen = Absen::create($request->all());
         return redirect()->route('absen.index');
     }
-    public function update(Request $request,$id)
-    {
-        $this->validate($request, 
-        ['jam_keluar' => 'required',
-        'pegawai_id' => 'required']);
-        $absen = Absen::find($id);
-        $absen->update($request->all());
-        return redirect()->route('absen.index');
-    }
+    // public function update(Request $request,$id)
+    // {
+    //     $this->validate($request, 
+    //     ['jam_keluar' => 'required',
+    //     'pegawai_id' => 'required']);
+    //     $absen = Absen::find($id);
+    //     $absen->update($request->all());
+    //     return redirect()->route('absen.index');
+    // }
 }

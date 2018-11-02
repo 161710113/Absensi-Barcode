@@ -15,7 +15,7 @@ class CreatePegawaisTable extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nip');
+            $table->int('nip');
             $table->string('nama');
             $table->unsignedInteger('jabatan_id');
             $table->foreign('jabatan_id')->references('id')->on('jabatans')->onDelete('CASCADE');

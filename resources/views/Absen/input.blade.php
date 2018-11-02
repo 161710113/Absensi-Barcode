@@ -127,19 +127,13 @@
             <div class="modal-body">
                <form action="{{ route('absen.update', 'test') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                 <div class="form-group {{ $errors->has('pegawai_id') ? 'has error' : '' }}">
+                <div class="form-group {{ $errors->has('pegawai_id') ? ' has-error' : '' }}">
                         <label class="control-label">Pegawai</label>
-                        <select name="pegawai_id" class="form-control">
-                            <option>-</option>
-                            @foreach($pegawai as $data)
-                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('pegawai'))
+                        <input type="text" name="pegawai_id" id="pegawai_id" class="form-control" required> @if ($errors->has('pegawai_id'))
                         <span class="help-block">
-                      <strong>{{ $errors->first('pegawai') }}</strong>
-                  </span> @endif
-                    </div>
+                        <strong>{{ $errors->first('pegawai_id') }}</strong>
+                    </span> @endif
+                </div>
                 <div class="form-group {{ $errors->has('jam_keluar') ? ' has-error' : '' }}">
                         <label class="control-label">Jam Keluar</label>
                         <input type="time" name="jam_keluar" value="{{ carbon\carbon::now()->timezone('Asia/Jakarta')->format('H:i:s') }}" class="form-control" readonly> @if ($errors->has('jam_keluar'))
@@ -155,7 +149,44 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection
+
+<script>
+    //     $('#keluar').on('show.bs.modal', function (event) {
+    //         var button = $(event.relatedTarget) 
+    //         var pegawai = button.data('mypegawai')            
+    //         var modal = $(this)
+    //         modal.find('.modal-body #title').val(pegawai);
+    //   })
+    //     $('#delete').on('show.bs.modal', function (event) {
+    //         var button = $(event.relatedTarget) 
+    //         var cat_id = button.data('catid') 
+    //         var modal = $(this)
+    //         modal.find('.modal-body #cat_id').val(cat_id);
+    //   })
+    function AbsenEdit(url)
+    {
+        $.('.update').hide();
+        $.('#keluar').show();
+        $.('.keluar').attr('hidden',false);
+        $.ajax({
+        url:url,
+        _token:token,
+        type:'get',
+        cache:true,
+        contentType:false,
+        processData:false,
+        async:false,
+        dataType:'json',
+        success:function(respone){
+            $("input#pegawai_id").val(respone.data.pegawai_id);
+        },
+        complete: function() {
+            $('#index').attr('hidden',false);
+        }
+    });
+    }
+</script>
 
 @section('scripts') 
 {!! $html->scripts() !!} 
