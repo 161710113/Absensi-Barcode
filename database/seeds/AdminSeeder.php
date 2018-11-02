@@ -17,7 +17,7 @@ class AdminSeeder extends Seeder
         $user = User::create([
             'name'	=> 'Admin PTIPD',
             'email'	=> 'admin@uinsgd.ac.id',
-            'password'	=> bcrypt('rahasia')
+            'password'	=> bcrypt('ptipd2018')
         ]);
 
         $jabatan = Jabatan::create(['nama_jabatan'	=> 'Kepala PTIPD']);
